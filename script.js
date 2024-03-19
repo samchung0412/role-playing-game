@@ -1,11 +1,14 @@
+// globel variable
 let xp = 0;
 let health = 100;
 let gold = 50;
 let currentWeapon = 0;
 let fighting;
 let monsterHealth;
+//init inventory
 let inventory = ["stick"];
 
+// get the id from html and assign to const variable
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
@@ -16,6 +19,8 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+
+// Json format Object, key and value
 const weapons = [
     { name: 'stick', power: 5 },
     { name: 'dagger', power: 30 },
@@ -90,11 +95,12 @@ const locations = [
     }
 ];
 
-// initialize buttons
+// initialize buttons the behavior, after click the button
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
+// The function for the updating for all the inner text element
 function update(location) {
     monsterStats.style.display = "none";
     button1.innerText = location["button text"][0];
@@ -161,6 +167,7 @@ function sellWeapon() {
     }
 }
 
+// each function is a feature for the specific objective
 function fightSlime() {
     fighting = 0;
     goFight();
@@ -189,6 +196,8 @@ function attack() {
     text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
     health -= getMonsterAttackValue(monsters[fighting].level);
     if (isMonsterHit()) {
+        // the function floor() is from the library Math for the round down the float
+        // the function random() is from the library Math for getting the random integer
         monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
     } else {
         text.innerText += " You miss.";
